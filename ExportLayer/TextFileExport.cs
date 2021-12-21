@@ -11,12 +11,12 @@ namespace ExportLayer
 {
     public class TextFileExport
     {
-        public void MaakTextBestandAan(List<Aap> aap, List<Boom> boom)
+        public async Task MaakTextBestandAan(List<Aap> aap, List<Boom> boom)
         {
 
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\apen.txt";
 
-            using (StreamWriter sw = File.CreateText(path))
+            await using (StreamWriter sw = File.CreateText(path))
             {
                 int meesteStappen = 0;
                 foreach (Aap element in aap)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading.Tasks;
 using BusinessLayer.Model;
 using EscapeFromTheWoods;
 
@@ -9,7 +10,7 @@ namespace ExportLayer
 {
     public class BitmapExport
     {
-        public void TekenElips(List<Aap> apen, List<Boom> bomen, Bos bos1)
+        public async Task TekenElips(List<Aap> apen, List<Boom> bomen, Bos bos1)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\" + bos1.ID + "_escapeRoute.jpg";
             Bitmap bm = new Bitmap((bos1.XMax - bos1.XMin), (bos1.YMax - bos1.YMin));
@@ -62,13 +63,13 @@ namespace ExportLayer
                     Console.Write(" T-START ");
                     if (i == 0)
                     {
-                        g.FillEllipse(mijnBrush, element.BoomLijst[i].X, element.BoomLijst[i].Y, 10, 10);
+                        await Task.Run(() => g.FillEllipse(mijnBrush, element.BoomLijst[i].X, element.BoomLijst[i].Y, 10, 10));
                     }
                         
 
                     if (element.BoomLijst[i + 1].X != -1)
                     {
-                        g.DrawLine(mijnPen, element.BoomLijst[i].X, element.BoomLijst[i].Y, element.BoomLijst[i + 1].X, element.BoomLijst[i + 1].Y);
+                        await Task.Run(() => g.DrawLine(mijnPen, element.BoomLijst[i].X, element.BoomLijst[i].Y, element.BoomLijst[i + 1].X, element.BoomLijst[i + 1].Y));
                     }
                         
                 Console.Write(" T-STOP ");
